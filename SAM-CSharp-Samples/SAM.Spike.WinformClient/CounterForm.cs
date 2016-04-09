@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace SAM.Spike.WinformClient
 {
-	public partial class SpikeForm : Form
+	public partial class CounterForm : Form
 	{
-		public SpikeForm()
+		public CounterForm()
 		{
 			InitializeComponent();
+		}
+
+		private void SpikeForm_Load(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

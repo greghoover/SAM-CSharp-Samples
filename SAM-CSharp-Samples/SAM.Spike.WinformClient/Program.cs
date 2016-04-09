@@ -16,7 +16,7 @@ namespace SAM.Spike.WinformClient
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new SpikeForm());
+			Application.Run(new CounterForm());
 		}
 	}
 }
