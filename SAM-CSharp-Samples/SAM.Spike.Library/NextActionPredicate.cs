@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SAM.Spike.Library
 {
-	public static class FuncLib
+	public static class NextActionPredicate
 	{
-		public static Func<State, Action<Dataset>> NextActionPredicate { get; set; } = (state) =>
+		public static Func<State, Action<Dataset>> CounterNap { get; set; } = (state) =>
 		{
 			return (action) =>
 			{

@@ -20,18 +20,36 @@ namespace SAM.Spike.Library
 		 * subscribe to changes.
 		 */
 
-		public Model CreateModel(Action container, Action state, Action nap, Action initialStore, Action enhancer)
+		//public void Subscribe() { }
+		public void Present(string jsonString)
 		{
-			var model = new Model();
-			return model;
+			Console.WriteLine("Model presented with update reqeust [{0}].", jsonString);
 		}
-		//export default function createModel(container, state, nap = nop, initialStore, enhancer)
-		//{
-		//	if (typeof enhancer !== 'undefined')
-		//	{
-		//		// TODO: Apply enhancer
-		//		return enhancer(createModel)(container, state, nap, initialStore)
-		//    }
-		//}
+
+
+	////////////////////////////////////////////////////////////
+	public interface IModelFactory
+	{
+		Model NewFrom(Action container, Action state, Action nap, Action initialStore, Action enhancer);
 	}
+
+	public class ModelFactory : IModelFactory
+	{
+			public Model NewFrom(Action container, Action state, Action nap, Action initialStore, Action enhancer)
+			{
+				var model = new Model();
+				return model;
+			}
+			//export default function createModel(container, state, nap = nop, initialStore, enhancer)
+			//{
+			//	if (typeof enhancer !== 'undefined')
+			//	{
+			//		// TODO: Apply enhancer
+			//		return enhancer(createModel)(container, state, nap, initialStore)
+			//    }
+			//}
+		}
+	}
+
+
 }
