@@ -12,6 +12,9 @@ namespace SAM.Spike.WinformClient
 {
 	public partial class CounterForm : Form
 	{
+		private Model _model { get; set; }
+		private DispatchObj _dispatch { get; set; }
+		
 		public CounterForm()
 		{
 			InitializeComponent();
@@ -19,7 +22,13 @@ namespace SAM.Spike.WinformClient
 
 		private void SpikeForm_Load(object sender, EventArgs e)
 		{
+			var initialStore = new StoreObj { Counter = 5 };
+			_model = Fn.CreateModel(Fn.Container, Fn.State, Fn.NAP, initialStore);
+			_dispatch = Fn.CreateDispatch(_model.Present);
 
+			//_model.Subscribe
 		}
+
+		private StateObj State { get; set; }
 	}
 }

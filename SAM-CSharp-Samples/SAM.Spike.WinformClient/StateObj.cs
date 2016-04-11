@@ -11,5 +11,12 @@ namespace SAM.Spike.WinformClient
 		public int Counter { get; set; }
 		public bool LaunchImminent { get; set; }
 		public bool HasLaunched { get; set; }
+
+		public override string ToString()
+		{
+			var s = string.Format("Counter [{0}], LaunchImminent [{1}], HasLaunched [{2}]",
+				this.Counter, this.LaunchImminent, this.HasLaunched);
+			return s;
+		}
 	}
 }
