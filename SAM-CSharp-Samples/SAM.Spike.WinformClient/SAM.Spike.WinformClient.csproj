@@ -45,6 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccionObj.cs" />
+    <Compile Include="ContainerObj.cs" />
+    <Compile Include="DatasetObj.cs" />
+    <Compile Include="DispatchObj.cs" />
+    <Compile Include="Fn.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CounterForm.cs">
@@ -53,6 +58,9 @@
     <Compile Include="CounterForm.Designer.cs">
       <DependentUpon>CounterForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model.cs" />
+    <Compile Include="StateObj.cs" />
+    <Compile Include="StoreObj.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
