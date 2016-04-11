@@ -8,12 +8,12 @@ namespace SAM.Spike.Library
 {
 	public static class NextActionPredicate
 	{
-		public static Func<State, Action<Dataset>> CounterNap { get; set; } = (state) =>
+		public static Func<State, Action<Action<Dataset>>> CounterNap { get; set; } = (state) =>
 		{
-			return (action) =>
+			return (present) =>
 			{
 				if (state.Counter == 10 && !state.HasLaunched)
-					action.Launch = true;
+					present(new Dataset { Launch = true });
 			};
 		};
 	}

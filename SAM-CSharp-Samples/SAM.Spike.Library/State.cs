@@ -11,7 +11,7 @@ namespace SAM.Spike.Library
 		public int Counter { get; set; }
 		public bool LaunchImminent { get; set; }
 		public bool HasLaunched { get; set; }
-		public Func<State, Action<Dataset>> NextAction { get; set; } = NextActionPredicate.CounterNap;
+		public Func<State, Action<Action<Dataset>>> NextAction { get; set; } = NextActionPredicate.CounterNap;
 
 		internal State() { }
 
