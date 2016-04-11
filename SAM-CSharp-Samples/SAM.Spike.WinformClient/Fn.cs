@@ -78,7 +78,8 @@ namespace SAM.Spike.WinformClient
 		// Dispatch
 		public static Action<AccionObj> Dispatch { get; set; }
 
-		public static Action<StateObj> Render { get; set; }
+		// Moved to UI.
+		//public static Action<StateObj> Render { get; set; }
 
 		// App
 		public static Func<
@@ -87,7 +88,8 @@ namespace SAM.Spike.WinformClient
 			Action<StateObj>
 		> App = (Dispatch, state) =>
 		{
-			return Render;
+			// todo: 04/11/16 gph. Implement.
+			return null;
 		};
 	}
 }
