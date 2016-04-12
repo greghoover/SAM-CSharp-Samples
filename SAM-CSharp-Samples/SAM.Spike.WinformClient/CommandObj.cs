@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SAM.Spike.WinformClient
 {
-	public class AccionObj
+	public class CommandObj
 	{
 		public string Type { get; set; } = "INC";
 	}

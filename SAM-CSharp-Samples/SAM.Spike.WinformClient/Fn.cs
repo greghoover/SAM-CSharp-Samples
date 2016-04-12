@@ -53,37 +53,37 @@ namespace SAM.Spike.WinformClient
 			return new Model();
 		};
 
-		// CreateDispatch
-		public static Func<
-			Action<DatasetObj>, // Model.Present
-			DispatchObj // Dispatch
-		> CreateDispatch = (present) =>
-		{
-			var dispatch = new DispatchObj();
-			//dispatch.Model = model;
-			dispatch.Request = (accion) =>
-			{
-				Console.WriteLine("Dispatch [{0}].", accion.Type);
-				switch (accion.Type)
-				{
-					case "INC":
-						//model.Present("{ increaseBy: 1 }");
-						present(new DatasetObj { IncreaseBy = 1 });
-						break;
-				}
-			};
-			return dispatch;
-		};
-
 		// Dispatch
-		public static Action<AccionObj> Dispatch { get; set; }
+		//public static Action<CommandObj> Dispatch { get; set; }
+		// CreateDispatch
+		//public static Func<
+		//	Action<DatasetObj>, // Model.Present
+		//	Action<CommandObj>, // Command
+		//	DispatchObj // Dispatch
+		//> CreateDispatch = (present) =>
+		//{
+		//	var dispatch = new DispatchObj();
+		//	//dispatch.Model = model;
+		//	dispatch.Request = (command) =>
+		//	{
+		//		Console.WriteLine("Dispatch [{0}].", command.Type);
+		//		switch (command.Type)
+		//		{
+		//			case "INC":
+		//				//model.Present("{ increaseBy: 1 }");
+		//				present(new DatasetObj { IncreaseBy = 1 });
+		//				break;
+		//		}
+		//	};
+		//	return dispatch;
+		//};
 
 		// Moved to UI.
 		//public static Action<StateObj> Render { get; set; }
 
 		// App
 		public static Func<
-			Action<AccionObj>, // Dispatch
+			Action<CommandObj>, // Dispatch
 			StateObj, // State
 			Action<StateObj>
 		> App = (Dispatch, state) =>

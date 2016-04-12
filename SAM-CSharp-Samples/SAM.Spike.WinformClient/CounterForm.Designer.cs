@@ -73,7 +73,7 @@
 			this.Controls.Add(this.buttonSubmitAction);
 			this.Name = "CounterForm";
 			this.Text = "Counter Form";
-			this.Load += new System.EventHandler(this.SpikeForm_Load);
+			this.Load += new System.EventHandler(this.CounterForm_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

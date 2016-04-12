@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccionObj.cs" />
+    <Compile Include="CommandObj.cs" />
     <Compile Include="ContainerObj.cs" />
     <Compile Include="DatasetObj.cs" />
     <Compile Include="DispatchObj.cs" />
