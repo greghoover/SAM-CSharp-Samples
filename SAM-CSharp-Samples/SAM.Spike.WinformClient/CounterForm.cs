@@ -5,10 +5,13 @@ namespace SAM.Spike.WinformClient
 {
 	public partial class CounterForm : Form
 	{
-		private Model _model { get; set; }
+		public Fn _fn = new Fn();
+		public Model _instanceModel { get; set; }
+		public static Model _staticModel { get; set; }
+		public Action<CommandObj> _dispatch { get; set; }
 		//private DispatchObj _dispatch { get; set; }
 		//private StateObj _state { get; set; }
-		
+
 		public CounterForm()
 		{
 			InitializeComponent();
@@ -16,13 +19,15 @@ namespace SAM.Spike.WinformClient
 
 		private void CounterForm_Load(object sender, EventArgs e)
 		{
-			var initialStore = new StoreObj { Counter = 5 };
-			_model = Fn.CreateModel(Fn.Container, Fn.State, Fn.NAP, initialStore);
+			var initialStore = new StoreObj { Counter = 8 };
+			//_instanceModel = _fn.CreateModel(_fn.Container, _fn.State, _fn.NAP, initialStore, this);
+			CounterForm._staticModel = _fn.CreateModel(_fn.Container, _fn.State, _fn.NAP, initialStore, this);
+			_dispatch = _fn.CreateDispatch(CounterForm._staticModel.Present);
 		}
 
 		public Action<StateObj, CounterForm> Render = (state, form) =>
 		{
-			MessageBox.Show(string.Format("View received new state [{0}].", state.ToString()));
+			Console.WriteLine(string.Format("View received new state [{0}].", state.ToString()));
 
 			// render App (state, dispatch, dom root)
 			form.labelCounter.Text = string.Format("Counter: {0}", state.Counter);
@@ -31,13 +36,24 @@ namespace SAM.Spike.WinformClient
 
 			form.labelStatus.Text = state.HasLaunched ? "LAUNCHED" : "";
 
-			form.buttonSubmitAction.Text = "INC";
-			EventHandler increment = (sender, e) =>
-			{
-				//Fn.Dispatch(new CommandObj { Type = "INC" });
-			};
-			form.buttonSubmitAction.Click += increment;
+			if (state.Counter != 10)
+				form.buttonSubmitAction.Text = "INC";
+			else
+				form.buttonSubmitAction.Text = "LAUNCH";
+			//EventHandler increment = (sender, e) =>
+			//{
+			//	//_fn.Dispatch(new CommandObj { Type = "INC" });
+			//};
+			//form.buttonSubmitAction.Click += increment;
 		};
 
+		private void buttonSubmitAction_Click(object sender, EventArgs e)
+		{
+			if (buttonSubmitAction.Text == "LAUNCH")
+				_dispatch(new CommandObj { Type = "LAUNCH" });
+			else
+				_dispatch(new CommandObj { Type = "INC" });
+			
+		}
 	}
 }

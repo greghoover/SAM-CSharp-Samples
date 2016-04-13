@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SAM.Spike.WinformClient
 {
-	//public class DispatchObj
-	//{
-	//	//public Model Model { get; set; } // May not be appropriate here.
-	//	public Action<CommandObj> Request { get; set; }
-	//}
+	public class DispatchObj
+	{
+		//public Model Model { get; set; } // May not be appropriate here.
+		public Action<CommandObj> Request { get; set; }
+	}
 }

@@ -6,18 +6,28 @@ using System.Threading.Tasks;
 
 namespace SAM.Spike.WinformClient
 {
-	public static class Fn
+	public class Fn
 	{
-		// Container
-		public static Func<StoreObj, DatasetObj, StoreObj> Container = (store, dataset) =>
+		/// <summary>
+		/// Container.
+		/// Inputs: store (current), dataset (presented).
+		/// Output: store (new).
+		/// </summary>
+		public Func<StoreObj, DatasetObj, StoreObj> Container = (store, dataset) =>
 		{
-			// todo: 04/11/16 gph. Implement.
 			var newStore = new StoreObj();
+			newStore.Counter = store.Counter + dataset.IncreaseBy;
+			if (dataset.Launch)
+				newStore.Launched = true;
 			return newStore;
 		};
 
-		// State
-		public static Func<StoreObj, StateObj> State = (store) =>
+		/// <summary>
+		/// State. 
+		/// Input: store (from model).
+		/// Output: state (to view and nap).
+		/// </summary>
+		public Func<StoreObj, StateObj> State = (store) =>
 		{
 			var state = new StateObj();
 			state.Counter = store.Counter;
@@ -26,70 +36,73 @@ namespace SAM.Spike.WinformClient
 			return state;
 		};
 
-		// NAP (Next Action Predicate)
-		public static Func<StateObj, Action<Action<DatasetObj>>> NAP = (state) =>
+		/// <summary>
+		/// NAP (Next Action Predicate).
+		/// Input: State.
+		/// Output: NAP, i.e. a function which accepts a function (present) and may or may not call it.
+		/// </summary>
+		public Func<StateObj, Action<Action<DatasetObj>>> NAP = (state) =>
 		{
 			return (present) =>
 			{
-				if (state.Counter == 10 && !state.HasLaunched)
-					present(new DatasetObj { Launch = true });
+				if (state.Counter > 9)
+					if (!state.HasLaunched)
+						present(new DatasetObj { Launch = true });
 			};
+		};
+
+		/// <summary>
+		/// CreateDispatch.
+		/// Input: Model.Present.
+		/// Output: Dispatch (a function which accepts an action and presents values to the model).
+		/// </summary>
+		public Func<
+			Action<DatasetObj>, // Model.Present
+			Action<CommandObj> // Command
+		> CreateDispatch = (present) => (command) =>
+		{
+			Console.WriteLine("Dispatch [{0}].", command.Type);
+			switch (command.Type)
+			{
+				case "INC":
+					present(new DatasetObj { IncreaseBy = 1 });
+					break;
+				case "LAUNCH":
+					present(new DatasetObj { IncreaseBy = 1, Launch = true });
+					break;
+			}
 		};
 
 		// Enhancer (Not sure the purpose of this yet. So minimal implementation, to change later.)
 		//public static Action Enhancer = () => { };
 
 		// CreateModel
-		public static Func<
+		public Func<
 			Func<StoreObj, DatasetObj, StoreObj>, // Container
 			Func<StoreObj, StateObj>, // State
 			Func<StateObj, Action<Action<DatasetObj>>>, // NAP
 			StoreObj, // StoreObj
 			//Action, // Enhancer
+			CounterForm, // Hack for now.
 			Model
-		> CreateModel = (container, state, nap, initialStore) =>
+		> CreateModel = (container, state, nap, initialStore, form) =>
 		{
-			// todo: 04/11/16 gph. Implement.
-			return new Model();
+			Model model = new Model(container, state, nap, initialStore, form);
+			return model;
 		};
-
-		// Dispatch
-		//public static Action<CommandObj> Dispatch { get; set; }
-		// CreateDispatch
-		//public static Func<
-		//	Action<DatasetObj>, // Model.Present
-		//	Action<CommandObj>, // Command
-		//	DispatchObj // Dispatch
-		//> CreateDispatch = (present) =>
-		//{
-		//	var dispatch = new DispatchObj();
-		//	//dispatch.Model = model;
-		//	dispatch.Request = (command) =>
-		//	{
-		//		Console.WriteLine("Dispatch [{0}].", command.Type);
-		//		switch (command.Type)
-		//		{
-		//			case "INC":
-		//				//model.Present("{ increaseBy: 1 }");
-		//				present(new DatasetObj { IncreaseBy = 1 });
-		//				break;
-		//		}
-		//	};
-		//	return dispatch;
-		//};
 
 		// Moved to UI.
 		//public static Action<StateObj> Render { get; set; }
 
 		// App
-		public static Func<
-			Action<CommandObj>, // Dispatch
-			StateObj, // State
-			Action<StateObj>
-		> App = (Dispatch, state) =>
-		{
-			// todo: 04/11/16 gph. Implement.
-			return null;
-		};
+		//public static Func<
+		//	Action<CommandObj>, // Dispatch
+		//	StateObj, // State
+		//	Action<StateObj>
+		//> App = (dispatch, state) =>
+		//{
+		//	// todo: 04/11/16 gph. Implement.
+		//	return null;
+		//};
 	}
 }

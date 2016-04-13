@@ -8,6 +8,6 @@ namespace SAM.Spike.WinformClient
 {
 	public class CommandObj
 	{
-		public string Type { get; set; } = "INC";
+		public string Type { get; set; } //= "INC";
 	}
 }

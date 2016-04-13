@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SAM.Spike.WinformClient
+namespace SAM_Spike_ConsoleClient
 {
-	//public class ContainerObj
-	//{
-	//}
+	class Program
+	{
+		static void Main(string[] args)
+		{
+		}
+	}
 }

@@ -42,6 +42,7 @@
 			this.buttonSubmitAction.TabIndex = 0;
 			this.buttonSubmitAction.Text = "Submit Action";
 			this.buttonSubmitAction.UseVisualStyleBackColor = true;
+			this.buttonSubmitAction.Click += new System.EventHandler(this.buttonSubmitAction_Click);
 			// 
 			// labelCounter
 			// 
