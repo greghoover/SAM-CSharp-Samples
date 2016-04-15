@@ -23,7 +23,7 @@ namespace SAM.Spike.RocketLauncherWinform
 		};
 		public Func<Model, string> counting { get; set; } = (model) =>
 		{
-			return "view.counting";
+			return string.Format("view.counting [{0}]", model.counter);
 		};
 		public Func<Model, string> aborted { get; set; } = (model) =>
 		{

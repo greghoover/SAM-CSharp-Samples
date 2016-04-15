@@ -31,25 +31,27 @@ namespace SAM.Spike.RocketLauncherWinform
 			};
 			this.render = (model) =>
 			{
-				Console.WriteLine("Render [{0}].", model.counter);
 				this.representation(model);
 				this.nextAction(model);
 			};
 			this.nextAction = (model) =>
 			{
-				Console.WriteLine("NextAction [{0}].", model.counter);
+				var actionToTake = "none";
 				if (this.counting(model))
 				{
 					if (model.counter > 0)
 					{
+						actionToTake = "decrement";
 						Actions.decrement(new Data { counter = model.counter }, model.present);
 					}
 
 					if (model.counter == 0)
 					{
+						actionToTake = "launch";
 						Actions.launch(null, model.present);
 					}
 				}
+				Console.WriteLine("actionToTake [{0}].", actionToTake);
 			};
 		}
 
@@ -57,25 +59,21 @@ namespace SAM.Spike.RocketLauncherWinform
 
 		public Func<Model, bool> ready { get; set; } = (model) =>
 		{
-			Console.WriteLine("Ready [{0}].", model.counter);
 			bool status = ((model.counter == Model.COUNTER_MAX) && !model.started && !model.launched && !model.aborted);
 			return status;
 		};
 		public Func<Model, bool> counting { get; set; } = (model) =>
 		{
-			Console.WriteLine("Counting [{0}].", model.counter);
 			var status = ((model.counter <= Model.COUNTER_MAX) && (model.counter >= 0) && model.started && !model.launched && !model.aborted);
 			return status;
 		};
 		public Func<Model, bool> launched { get; set; } = (model) =>
 		{
-			Console.WriteLine("Launched [{0}].", model.counter);
 			var status = ((model.counter == 0) && model.started && model.launched && !model.aborted);
 			return status;
 		};
 		public Func<Model, bool> aborted { get; set; } = (model) =>
 		{
-			Console.WriteLine("Aborted [{0}].", model.counter);
 			var status = ((model.counter <= Model.COUNTER_MAX) && (model.counter >= 0) && model.started && !model.launched && model.aborted);
 			return status;
 		};

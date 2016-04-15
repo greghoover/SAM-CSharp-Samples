@@ -26,8 +26,9 @@ namespace SAM.Spike.RocketLauncherWinform
 			{
 				if (data == null) data = new Data();
 				data.counter = data.counter ?? Model.COUNTER_MAX;
-				// todo: 04/15/16 gph. Setup a timer task do decrement once per second.
+				Task.Delay(1000).Wait();
 				data.counter -= 1; // just do once for now.
+				present(data);
 			};
 			launch = (data, present) =>
 			{
