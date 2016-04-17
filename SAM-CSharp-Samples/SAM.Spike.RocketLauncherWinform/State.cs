@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SAM.Spike.RocketLauncherWinform
@@ -10,11 +11,11 @@ namespace SAM.Spike.RocketLauncherWinform
 	{
 		public View view { get; set; } = new View();
 
-		public Action<Model> representation { get; set; }
+		public Action<Model> represent { get; set; }
 
 		public State()
 		{
-			this.representation = (model) =>
+			this.represent = (model) =>
 			{
 				string representation = "doh!";
 
@@ -31,7 +32,7 @@ namespace SAM.Spike.RocketLauncherWinform
 			};
 			this.render = (model) =>
 			{
-				this.representation(model);
+				this.represent(model);
 				this.nextAction(model);
 			};
 			this.nextAction = (model) =>
@@ -42,7 +43,9 @@ namespace SAM.Spike.RocketLauncherWinform
 					if (model.counter > 0)
 					{
 						actionToTake = "decrement";
-						Actions.decrement(new Data { counter = model.counter }, model.present);
+						Action tick = () => 
+							Actions.decrement(new Data { counter = model.counter }, model.present);
+						Task.Factory.StartNew(tick);
 					}
 
 					if (model.counter == 0)
@@ -51,7 +54,7 @@ namespace SAM.Spike.RocketLauncherWinform
 						Actions.launch(null, model.present);
 					}
 				}
-				Console.WriteLine("actionToTake [{0}].", actionToTake);
+				Console.WriteLine("next action taken [{0}].", actionToTake);
 			};
 		}
 

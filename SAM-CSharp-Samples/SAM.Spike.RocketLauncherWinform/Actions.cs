@@ -24,10 +24,9 @@ namespace SAM.Spike.RocketLauncherWinform
 			};
 			decrement = (data, present) =>
 			{
-				if (data == null) data = new Data();
-				data.counter = data.counter ?? Model.COUNTER_MAX;
+				data.counter = (data ?? new Data()).counter ?? Model.COUNTER_MAX; // Dflt if needed.
 				Task.Delay(1000).Wait();
-				data.counter -= 1; // just do once for now.
+				data.counter -= 1;
 				present(data);
 			};
 			launch = (data, present) =>

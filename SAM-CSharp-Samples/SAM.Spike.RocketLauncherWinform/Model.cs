@@ -26,7 +26,7 @@ namespace SAM.Spike.RocketLauncherWinform
 			{
 				if (this.state.counting(this))
 				{
-					if (this.counter ==0)
+					if (this.counter == 0)
 					{
 						this.launched = data.launched ?? false;
 					}
