@@ -12,8 +12,8 @@ namespace SAM.Spike.RocketLauncherWinform
 {
 	public partial class RocketLauncher : Form
 	{
+		//int _counter = 10;
 		Model _model = new Model();
-		int _counter = 10;
 
 		public RocketLauncher()
 		{
@@ -31,8 +31,9 @@ namespace SAM.Spike.RocketLauncherWinform
 
 		private void buttonDecrement_Click(object sender, EventArgs e)
 		{
-			_counter -= 1;
-			Actions.decrement(new Data { counter = _counter }, _model.present);
+			//_counter -= 1;
+			//Actions.decrement(new Data { counter = _counter }, _model.present);
+			Actions.decrement(new Data { decrementBy = 1 }, _model.present);
 		}
 
 		private void buttonLaunch_Click(object sender, EventArgs e)

@@ -33,8 +33,10 @@ namespace SAM.Spike.RocketLauncherWinform
 					else
 					{
 						this.aborted = data.aborted ?? false;
-						if (data.counter.HasValue)
-							this.counter = data.counter.Value;
+						//if (data.counter.HasValue)
+						//	this.counter = data.counter.Value;
+						if (data.decrementBy.HasValue)
+							this.counter -= 1;
 					}
 				}
 				else if (this.state.ready(this))
