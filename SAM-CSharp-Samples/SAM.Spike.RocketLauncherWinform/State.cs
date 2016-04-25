@@ -47,16 +47,18 @@ namespace SAM.Spike.RocketLauncherWinform
 					if (model.counter > 0)
 					{
 						nextActionDescription = "decrement";
-						Action tick = () =>
+						Action task = () =>
 							//Actions.decrement(new Data { counter = model.counter }, model.present);
 							Actions.decrement(new Data { decrementBy = 1 }, model.present);
-						Task.Factory.StartNew(tick);
+						Task.Factory.StartNew(task);
 					}
 
 					if (model.counter == 0)
 					{
 						nextActionDescription = "launch";
-						Actions.launch(null, model.present);
+						Action task = () =>
+							Actions.launch(null, model.present);
+						Task.Factory.StartNew(task);
 					}
 				}
 				Console.WriteLine("Next action taken [{0}].", nextActionDescription);
